@@ -14,20 +14,20 @@ fn main() {
     thread::scope(|t| {
         let (s1, r1) = bounded(5);
         let (s2, r2) = bounded(5);
-        t.spawn(|_| {
+        t.spawn(move |_| {
             for data in r2 {
                 println!("{:?}", data);
             }
         });
 
-        let handle = t.spawn(|_| {
+        t.spawn(move |_| {
             for data in r1 {
                 s2.send(data);
             }
         });
 
-        t.spawn(|_| {
-            let mut buffer = BufReader::new(io::stdin());
+        t.spawn(move |_| {
+            let buffer = BufReader::new(io::stdin());
 
             for line in buffer.lines() {
                 unsafe {
