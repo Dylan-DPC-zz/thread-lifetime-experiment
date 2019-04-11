@@ -1,0 +1,11 @@
+[package]
+name = "thread-lifetime-experiment"
+version = "0.1.0"
+authors = ["= <dcaetanodesouza@wayfair.com>"]
+edition = "2018"
+
+[dependencies]
+simdjson = { git = "https://github.com/Licenser/simdjson-rs" }
+crossbeam-utils = "0.6"
+crossbeam-channel =  "*"
+
