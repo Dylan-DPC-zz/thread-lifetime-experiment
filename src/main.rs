@@ -22,6 +22,10 @@ fn main() {
 
         t.spawn(move |_| {
             for data in r1 {
+		let data = match data {
+                  Data::Raw(d) => Data::Raw(Value::Array(vec![d])),
+                  o => o
+                };
                 s2.send(data);
             }
         });
@@ -34,7 +38,7 @@ fn main() {
                     let mut content = line.unwrap();
                     let value = simdjson::to_borrowed_value(content.as_bytes_mut()).unwrap();
 
-                    s1.send((Data::Raw(value), content));
+                    s1.send(Data::Raw(value));
                 }
             }
         });
